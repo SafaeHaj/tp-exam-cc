@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import getReplies from '@/composables/getReplies';
 import SingleReply from '@/components/SingleReply.vue';
+import getReplies from '@/composables/getReplies';
 
 export default {
   data() {
