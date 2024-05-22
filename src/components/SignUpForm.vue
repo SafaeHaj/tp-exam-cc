@@ -19,23 +19,19 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'; 
 import registerUser from '@/composables/addUser';
 
+const displayName = ref('');
+const email = ref('');
+const password = ref('');
+const photoURL = ref('');
 
 const submitForm = async () => {
-    const emit = defineEmits(['customEvent']);
-
-    const displayName = ref('');
-    const email = ref('');
-    const password = ref('');
-    const photoURL = ref('');
-
-    const { error, signup } = registerUser()
+    const { error, signup } = registerUser();
+    console.log("email:", email.value);
     await signup(email.value, password.value, displayName.value, photoURL.value)
-    if (!error.value) {
-        emit('signup')
-    }
+    console.log(error);
 }
 </script>
 

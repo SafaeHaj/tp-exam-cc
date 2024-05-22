@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import getUser from '@/composables/getUser';  
 import { projectFirestore } from '@/firebase/config';
 
 export default {
@@ -27,13 +28,24 @@ export default {
       createdAt: ''
     };
   },
+  async created() {
+    try {
+      const { user, error, load } = getUser();
+      await load();
+      this.authorID = user.value.uid;
+      console.log(error);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  },
   methods: {
     createDiscussion() {
       const discussionData = {
         title: this.title,
         content: this.content,
         createdAt: Date(),
-        authorID: ''
+        authorID: this.authorID
       };
 
       projectFirestore.collection('forum-discussions').add(discussionData);
@@ -41,7 +53,9 @@ export default {
       this.content = '';
       this.$router.push({ name: 'discussions'});
     }
-  }
+  },
+  
+
 };
 </script>
 
