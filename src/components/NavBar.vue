@@ -2,7 +2,7 @@
   <div class="navbar">
     <div class="logo">MyLogo</div>
     <div class="navlinks-main">
-      <router-link to="/home" class="navlink">Home Page</router-link>
+      <router-link to="/" class="navlink">Home Page</router-link>
       <router-link to="/discussions" class="navlink">Discussions</router-link>
     </div>
     <div class="navlinks-side">

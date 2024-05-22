@@ -8,7 +8,7 @@ import DiscussionFormView from '@/views/DiscussionFormView.vue';
 
 
 const routes = [
-    { path: '/home', name: 'home', component: HomeView },
+    { path: '/', name: 'home', component: HomeView },
     { path: '/profile', name: 'profile', component: ProfileView },
     { path: '/signin', name: 'signin', component: SigninView },
     { path: '/discussions', name: 'discussions', component: DiscussionView },
