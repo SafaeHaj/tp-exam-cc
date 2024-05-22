@@ -1,7 +1,7 @@
 <template>
   <div class="discussion-item list-group-item">
     <h2 class="discussion-title">{{ discussion.title }}</h2>
-    <p class="discussion-author">By: {{ discussion.authorID }}</p>
+    <p class="discussion-author">By: {{ author }}</p>
     <p class="discussion-preview">{{ getDiscussionPreview(discussion.content) }}</p>
     <!-- <p class="discussion-date"> published {{ formatCreatedAt(discussion.formatCreatedAt) }}</p> -->
     <router-link :to="'/discussion/' + discussion.id" class="btn btn-primary">View Discussion</router-link>
@@ -10,20 +10,37 @@
 
 
 <script>
-
+import getAuthor from '@/composables/getAuthor';
 export default {
+  data() {
+    return {
+      author: ''
+    }
+  },
   props: {
     discussion: {
       type: Object,
       required: true
-    } 
+    }
   },
   methods: {
     getDiscussionPreview(content) {
       return content.slice(0, 100) + (content.length > 100 ? '...' : '');
     }
+  },
+  async created() {
+    try {
+      const { author, error, load } = getAuthor(this.discussion.authorID);
+      await load();
+      console.log("author: ", author.value.displayName);
+      this.author = author.value.displayName;
+      console.log(error);
+    }
+    catch (error) {
+      console.log(error);
+    }
   }
-};
+}
 </script>
 
 <style scoped>
