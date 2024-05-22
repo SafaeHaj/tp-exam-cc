@@ -13,6 +13,8 @@ const signup = async (email, password, displayName, photoURL) => {
         console.log(response.user)
         
         await response.user.updateProfile({displayName: displayName, photoURL: photoURL})
+        const userdata = { displayName: displayName, photoURL: photoURL};
+        projectFirestore.collection('forum-users', response.user.uid).add(userdata);
         error.value = null
         return response.message
     } catch (err) {

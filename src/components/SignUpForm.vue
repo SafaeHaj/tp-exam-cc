@@ -21,17 +21,20 @@
 <script setup>
 import { ref } from 'vue'; 
 import registerUser from '@/composables/addUser';
+import { useRouter } from 'vue-router';
 
 const displayName = ref('');
 const email = ref('');
 const password = ref('');
 const photoURL = ref('');
 
+const router = useRouter();
+
 const submitForm = async () => {
     const { error, signup } = registerUser();
-    console.log("email:", email.value);
-    await signup(email.value, password.value, displayName.value, photoURL.value)
+    await signup(email.value, password.value, displayName.value, photoURL.value);
     console.log(error);
+    await router.push('/profile');
 }
 </script>
 
